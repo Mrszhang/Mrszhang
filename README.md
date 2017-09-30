@@ -41,6 +41,37 @@ function* generateFn(){
   g.next()
   ```
   
+  ### generate函数常用方法
+  
+  #### next
+  generate函数返回一个遍历器对象，只有通过next方法才能遍历执行函数下一个内部状态
+  #### throw
+  
+  #### return
+  return函数可以返回给定的值，并遍历generate函数
+  如果generate函数内部部署的有try...finally代码块，那么return函数将会被推迟到finally代码块执行完再执行
+  
+  ### yield、yield*表达式
+  yield*表达式用于在一个generate函数中执行另外一个generate函数，因为如果在 Generator 函数内部，调用另一个 Generator 函数，默认情况下是没有效果的
+  **eg**
+  ```javascript
+    function* innerGenerate(){
+      yield 'hello';
+      yield 'world';
+    }
+    
+    function* outerGenerate(){
+       yield 'i am outer';
+       yield* innerGenerate();
+       yield 'i am outer ';
+    }
+    const g = outerGenerate();
+    g.next();  //i am outer;
+    g.next();  // hello world;
+    g.next();  // i am outer;
+    g.next();  // undefined;
+  ```
+  yield* 表达式实际上相当于遍历执行generate函数产生的遍历器对象
 
   
 
