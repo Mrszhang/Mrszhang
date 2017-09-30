@@ -43,6 +43,3 @@ function* generateFn(){
   
 
 
-## promise
-
-
